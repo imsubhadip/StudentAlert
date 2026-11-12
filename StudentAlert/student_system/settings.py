@@ -15,7 +15,12 @@ SECRET_KEY = os.environ.get(
 )
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".pythonanywhere.com"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    ".pythonanywhere.com",
+    "studentalert.onrender.com",
+]
 
 # Apps used in this project
 INSTALLED_APPS = [
