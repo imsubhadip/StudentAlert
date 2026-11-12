@@ -1,0 +1,20 @@
+{% extends "students/base.html" %}
+
+{% block title %}Delete student{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card-box">
+      <h3 class="mb-3">Delete student</h3>
+      <p>Are you sure you want to delete <strong>{{ student.name }}</strong> (roll number {{ student.roll_number }})?
+         This also deletes the saved details and prediction. It cannot be undone.</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'student_detail' student.id %}" class="btn btn-outline-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

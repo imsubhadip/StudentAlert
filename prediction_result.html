@@ -1,0 +1,65 @@
+{% extends "students/base.html" %}
+
+{% block title %}Prediction result{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Prediction result</h2>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card-box result-card">
+      <p class="text-muted mb-1">Student</p>
+      <h4>{{ student.name }} <small class="text-muted">({{ student.roll_number }})</small></h4>
+
+      <p class="text-muted mt-4 mb-1">Predicted outcome</p>
+      <div class="result-outcome result-{{ student.predicted_outcome|lower }}">{{ student.predicted_outcome }}</div>
+      <p class="mt-3">{{ advice }}</p>
+
+      <h5 class="mt-4">Recommended student support</h5>
+      <p class="text-muted small">These suggestions are generated from the student's recorded academic and fee indicators. They are prompts for staff review, not automatic decisions.</p>
+      <div class="recommendation-list">
+        {% for item in recommendations %}
+          <article class="card-box mb-3 recommendation-item">
+            <div class="d-flex justify-content-between align-items-center gap-2"><strong>{{ item.title }}</strong><span class="badge {% if item.priority == 'High' %}text-bg-danger{% elif item.priority == 'Medium' %}text-bg-warning{% else %}text-bg-info{% endif %}">{{ item.priority }} priority</span></div>
+            <p class="small mt-2 mb-1"><strong>Why:</strong> {{ item.reason }}</p>
+            <p class="small mb-0"><strong>Suggested next step:</strong> {{ item.action }}</p>
+          </article>
+        {% endfor %}
+      </div>
+
+      <h6 class="mt-4">Chance of each outcome (model estimate)</h6>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between"><span>Dropout</span><span>{{ student.dropout_chance|floatformat:1 }}%</span></div>
+        <div class="progress"><div class="progress-bar bar-dropout" style="width: {{ student.dropout_chance }}%"></div></div>
+      </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between"><span>Enrolled</span><span>{{ student.enrolled_chance|floatformat:1 }}%</span></div>
+        <div class="progress"><div class="progress-bar bar-enrolled" style="width: {{ student.enrolled_chance }}%"></div></div>
+      </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between"><span>Graduate</span><span>{{ student.graduate_chance|floatformat:1 }}%</span></div>
+        <div class="progress"><div class="progress-bar bar-graduate" style="width: {{ student.graduate_chance }}%"></div></div>
+      </div>
+
+      <p class="text-muted small mb-0">Predicted on {{ student.predicted_on|date:"d M Y, H:i" }}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card-box note-box mb-4">
+      <h5>Important</h5>
+      <p class="mb-2">This is an <strong>estimate</strong> made by a machine learning model. It is not a certain outcome.</p>
+      <p class="mb-2">The chances are rough scores from the model, not exact probabilities. The model can miss students who really drop out and can also give false alarms.</p>
+      <p class="mb-0">Use this result only to decide who may need extra help. Do not use it alone to make decisions about a student.</p>
+    </div>
+
+    <div class="card-box">
+      <a href="{% url 'individual_pdf' student.id %}" class="btn-glow w-100 mb-2">↓ Download Individual PDF Report</a>
+      <a href="{% url 'student_detail' student.id %}" class="btn-outline w-100 mb-2">Back to student details</a>
+      <a href="{% url 'predict_student' student.id %}" class="btn btn-outline-green mb-2 w-100">Change details and predict again</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary w-100">Go to dashboard</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

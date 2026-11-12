@@ -1,0 +1,58 @@
+{% extends "students/base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<h2 class="page-title">About the project</h2>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card-box mb-4">
+      <h5>Project 18: Student Dropout Early Warning System</h5>
+      <p>
+        StudentAlert is a Django web application that helps an educational institution look at the
+        students who may need extra help. A trained machine learning model predicts one of three
+        outcomes for a student: <strong>Dropout</strong>, <strong>Enrolled</strong> or <strong>Graduate</strong>.
+      </p>
+      <p class="mb-0">
+        Teachers can add students, keep their details, run a prediction, and see the results on a dashboard.
+      </p>
+    </div>
+
+    <div class="card-box mb-4">
+      <h5>The machine learning model</h5>
+      <ul>
+        <li><strong>Algorithm:</strong> Random Forest classifier (scikit-learn), trained in Google Colab.</li>
+        <li><strong>Dataset:</strong> UCI "Predict Students' Dropout and Academic Success" (4,424 student records).</li>
+        <li><strong>Inputs:</strong> 30 features: admission details, personal and family details, fees, first-semester results and economic indicators.</li>
+        <li><strong>Early warning:</strong> second-semester results were left out on purpose, so the model only uses information available after the first semester.</li>
+        <li><strong>Data split:</strong> 80% of the records were used for training and 20% for testing.</li>
+        <li><strong>Results:</strong> accuracy, precision, recall and F1-score are shown in the Colab notebook.</li>
+      </ul>
+      <p class="mb-0">
+        Dataset page:
+        <a href="https://archive.ics.uci.edu/dataset/697" target="_blank" rel="noopener">archive.ics.uci.edu/dataset/697</a>
+      </p>
+    </div>
+
+    <div class="card-box">
+      <h5>Technologies used</h5>
+      <p class="mb-0">Python, Django, SQLite, HTML5, CSS3, JavaScript, Bootstrap, Chart.js, Pandas, NumPy, Scikit-learn and Joblib.</p>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card-box note-box">
+      <h5>Please read: limitations</h5>
+      <ul class="mb-0">
+        <li>A prediction is an <strong>estimate</strong>, not a certain outcome.</li>
+        <li>The model sometimes misses students who really drop out, and sometimes gives false alarms.</li>
+        <li>"Enrolled" means the student had not finished the course at the end of its normal length.</li>
+        <li>The model was trained on data from one Portuguese institution. A college should check it with its own data before using it for real decisions.</li>
+        <li>Use the results only to offer extra help, never to punish a student.</li>
+        <li>Some inputs (such as gender, nationality and parents' details) are personal. Think carefully before relying on them.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
