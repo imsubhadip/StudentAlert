@@ -300,3 +300,4 @@ The bulk feature accepts up to 5,000 rows and a 10 MB file. Install dependencies
 ## Responsible-use limitation
 
 The bundled model was trained using data from a Portuguese higher-education institution. It has not been validated for Indian colleges. Its `predict_proba` outputs are model scores, not guaranteed or necessarily calibrated real-world probabilities. Use the tool only as an educational demonstration and to support human review; do not use it to deny admission, scholarships, progression, or other opportunities.
+gunicorn==23.0.0
